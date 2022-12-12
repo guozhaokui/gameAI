@@ -4,27 +4,27 @@
 // - requires model of the environment :(
 // - does not learn from experience :(
 
-import { assert, zeros } from "./utils";
+import { zeros } from "./utils";
 
 function sampleWeighted(p) {
     var r = Math.random();
     var c = 0.0;
-    for(var i=0,n=p.length;i<n;i++) {
-      c += p[i];
-      if(c >= r) { return i; }
+    for (var i = 0, n = p.length; i < n; i++) {
+        c += p[i];
+        if (c >= r) { return i; }
     }
-    assert(false, 'wtf');
-  }
+    throw 'wtf'
+}
 
 // - assumes finite MDP :(
-class DPAgent {
+export class DPAgent {
     V;
     P;
     env;
     gamma=0.75;// future reward discount factor
     ns;
     na;
-    constructor(env, opt) {
+    constructor(env, opt?:any) {
         this.V = null; // state value function
         this.P = null; // policy distribution \pi(s,a)
         this.env = env; // store pointer to environment
